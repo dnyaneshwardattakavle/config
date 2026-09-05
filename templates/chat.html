@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Chat with {{ receiver.username }} - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="chat-page">
+
+
+<!-- Chat Header -->
+
+<div class="chat-header">
+
+    <div class="chat-user">
+
+        <div class="chat-avatar">
+            {{ receiver.username|first|upper }}
+        </div>
+
+        <div>
+            <h2>{{ receiver.username }}</h2>
+            <p>Skill Swap Connection</p>
+        </div>
+
+    </div>
+
+    <a href="{% url 'connections' %}" class="back-btn">
+        ← Connections
+    </a>
+
+</div>
+
+
+<!-- Messages -->
+
+<div class="chat-messages">
+
+    {% for message in messages %}
+
+        {% if message.sender_id == request.user.id %}
+
+            <div class="message-row sent">
+
+                <div class="message-bubble">
+
+                    <p>{{ message.text }}</p>
+
+                    <small>You</small>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="message-row received">
+
+                <div class="message-bubble">
+
+                    <p>{{ message.text }}</p>
+
+                    <small>{{ message.sender.username }}</small>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    {% empty %}
+
+        <div class="empty-chat">
+
+            <div>💬</div>
+
+            <h3>No messages yet</h3>
+
+            <p>Start the conversation with {{ receiver.username }}.</p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- Message Form -->
+
+<form method="POST" class="chat-form">
+
+    {% csrf_token %}
+
+    <input
+        type="text"
+        name="text"
+        placeholder="Type your message..."
+        autocomplete="off"
+        required
+    >
+
+    <button type="submit">
+        ➤
+    </button>
+
+</form>
+
+
+</div>
+
+{% endblock %}

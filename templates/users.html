@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Users - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+
+<div>
+    <h1>👥 Discover Users</h1>
+
+    <p>
+        Find people, explore their skills and connect with them.
+    </p>
+</div>
+
+
+</div>
+
+<div class="users-grid">
+
+
+{% for user in users %}
+
+    <div class="user-card">
+
+        <div class="user-avatar">
+            {{ user.username|first|upper }}
+        </div>
+
+        <h2>{{ user.username }}</h2>
+
+        <p class="user-email">
+            {{ user.email|default:"No email available" }}
+        </p>
+
+
+        <div class="user-actions">
+
+            <a
+                class="btn profile-btn"
+                href="{% url 'user_profile' user.id %}">
+                👤 View Profile
+            </a>
+
+
+            <a
+                class="btn connect-btn"
+                href="{% url 'send_request' user.id %}">
+                🤝 Connect
+            </a>
+
+        </div>
+
+    </div>
+
+{% empty %}
+
+    <div class="card">
+        <h2>No users found 😔</h2>
+
+        <p>
+            There are no other users available right now.
+        </p>
+    </div>
+
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

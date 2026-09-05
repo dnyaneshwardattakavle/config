@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ profile.user.username }} - Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile-page">
+
+    <!-- Profile Header -->
+
+    <div class="card user-profile-header">
+
+        <div class="user-profile-avatar">
+            {{ profile.user.username|first|upper }}
+        </div>
+
+        <div class="user-profile-info">
+
+            <h1>
+                {{ profile.user.username }}
+            </h1>
+
+            <p>
+                👤 Skill Swap Member
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Profile Details -->
+
+    <div class="user-profile-grid">
+
+        <!-- About -->
+
+        <div class="card user-profile-card">
+
+            <h2>👤 About</h2>
+
+            <p class="user-profile-label">
+                BIO
+            </p>
+
+            <p class="user-profile-text">
+                {{ profile.bio|default:"This user has not added a bio yet." }}
+            </p>
+
+        </div>
+
+
+        <!-- Skills -->
+
+        <div class="card user-profile-card">
+
+            <h2>💡 Skills</h2>
+
+            <p class="user-profile-label">
+                SKILLS
+            </p>
+
+            <div class="user-skills">
+
+                {% for skill in skills_list %}
+
+                    <span class="skill-tag">
+                        {{ skill }}
+                    </span>
+
+                {% empty %}
+
+                    <span class="empty-text">
+                        No skills added yet.
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Actions -->
+
+    <div class="card user-profile-actions">
+
+        <a
+            href="{% url 'chat' profile.user.id %}"
+            class="btn message-btn"
+        >
+            💬 Message
+        </a>
+
+        <a
+            href="{% url 'connections' %}"
+            class="btn profile-back-btn"
+        >
+            ← Back to Connections
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

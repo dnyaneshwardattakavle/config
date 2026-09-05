@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Recommended Users - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>🎯 Recommended Users</h1>
+
+    <p>
+        Discover users who share skills with you.
+    </p>
+
+</div>
+
+
+<div class="recommendation-grid">
+
+    {% for item in recommended_users %}
+
+        <div class="card recommendation-card">
+
+            <!-- Avatar -->
+
+            <div class="recommendation-avatar">
+                {{ item.profile.user.username|first|upper }}
+            </div>
+
+
+            <!-- Username -->
+
+            <h2>
+                {{ item.profile.user.username }}
+            </h2>
+
+
+            <!-- Bio -->
+
+            <p class="profile-label">
+                BIO
+            </p>
+
+            <p>
+                {{ item.profile.bio|default:"No bio available" }}
+            </p>
+
+
+            <!-- Skills -->
+
+            <p class="profile-label">
+                SKILLS
+            </p>
+
+            <div class="skills-preview">
+
+                {% for skill in item.skills_list %}
+
+                    <span class="skill-tag">
+                        {{ skill }}
+                    </span>
+
+                {% empty %}
+
+                    <span class="empty-text">
+                        No skills added
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Common Skills -->
+
+            <p class="profile-label">
+                🤝 Common Skills
+            </p>
+
+            <div class="skills-preview">
+
+                {% for skill in item.common_skills %}
+
+                    <span class="skill-tag">
+                        {{ skill|title }}
+                    </span>
+
+                {% empty %}
+
+                    <span class="empty-text">
+                        No common skills
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Actions -->
+
+            <div class="recommendation-actions">
+
+                <a
+                    href="{% url 'user_profile' item.profile.user.id %}"
+                    class="btn profile-btn"
+                >
+                    👤 View Profile
+                </a>
+
+
+                {% if item.status == 'none' %}
+
+                    <a
+                        href="{% url 'send_request' item.profile.user.id %}"
+                        class="btn connect-btn"
+                    >
+                        🤝 Connect
+                    </a>
+
+                {% elif item.status == 'sent' %}
+
+                    <button
+                        class="btn connect-btn"
+                        disabled
+                    >
+                        ⏳ Pending
+                    </button>
+
+                {% elif item.status == 'received' %}
+
+                    <a
+                        href="{% url 'inbox' %}"
+                        class="btn connect-btn"
+                    >
+                        📥 View Request
+                    </a>
+
+                {% elif item.status == 'connected' %}
+
+                    <a
+                        href="{% url 'chat' item.profile.user.id %}"
+                        class="btn connect-btn"
+                    >
+                        💬 Message
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+    {% empty %}
+
+        <div class="card empty-state">
+
+            <div class="empty-icon">
+                🎯
+            </div>
+
+            <h2>
+                No recommendations yet
+            </h2>
+
+            <p>
+                Add skills to your profile to discover
+                people with similar interests.
+            </p>
+
+            <br>
+
+            <a
+                href="{% url 'profile' %}"
+                class="btn connect-btn"
+            >
+                ✏️ Add Skills
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

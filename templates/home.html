@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Skill Swap - Home
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+
+<h1>Welcome to Skill Swap 👋</h1>
+
+{% if user.is_authenticated %}
+
+    <h2>Hello, {{ user.username }}!</h2>
+
+    <p>
+        Find people with interesting skills,
+        connect with them and start learning together.
+    </p>
+
+    <br>
+
+    <a class="btn" href="{% url 'users' %}">
+        👥 Find Users
+    </a>
+
+    <a class="btn" href="{% url 'search_users' %}">
+        🔍 Search Skills
+    </a>
+
+    <a class="btn" href="{% url 'recommended_users' %}">
+        🎯 Recommendations
+    </a>
+
+{% else %}
+
+    <h2>Learn. Share. Connect. 🚀</h2>
+
+    <p>
+        Skill Swap helps you connect with people,
+        exchange knowledge and discover new skills.
+    </p>
+
+    <br>
+
+    <a class="btn" href="{% url 'signup' %}">
+        🚀 Create Account
+    </a>
+
+    <a class="btn" href="{% url 'login' %}">
+        🔐 Login
+    </a>
+
+{% endif %}
+
+
+</div>
+
+{% if user.is_authenticated %}
+
+<div class="card">
+
+
+<h2>What can you do?</h2>
+
+<p>👤 Complete your profile and add your skills.</p>
+
+<p>🔍 Search users by their skills.</p>
+
+<p>🎯 Discover recommended users.</p>
+
+<p>🤝 Send connection requests.</p>
+
+<p>💬 Chat with your connections.</p>
+
+
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Profile - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+
+        <div class="profile-avatar">
+
+            {% if profile.profile_photo %}
+                <img
+                    src="{{ profile.profile_photo.url }}"
+                    alt="Profile Photo"
+                >
+            {% else %}
+                {{ request.user.username|first|upper }}
+            {% endif %}
+
+        </div>
+
+        <div>
+            <h1>{{ request.user.username }}</h1>
+            <p>Manage your profile and skills</p>
+        </div>
+
+    </div>
+
+
+    <!-- Profile Information + Skills -->
+    <div class="profile-grid">
+
+        <!-- Profile Information -->
+        <div class="card">
+
+            <h2>👤 Profile Information</h2>
+
+            <p class="profile-label">
+                Username
+            </p>
+
+            <div class="profile-value">
+                {{ request.user.username }}
+            </div>
+
+            <p class="profile-label">
+                Email
+            </p>
+
+            <div class="profile-value">
+                {{ request.user.email|default:"No email added" }}
+            </div>
+
+        </div>
+
+
+        <!-- Skills -->
+        <div class="card">
+
+            <h2>💡 Your Skills</h2>
+
+            <p class="form-description">
+                Add the skills you know so other users
+                can discover you.
+            </p>
+
+            <div class="skills-preview">
+
+                {% if profile.skills %}
+
+                    <span class="skill-tag">
+                        {{ profile.skills }}
+                    </span>
+
+                {% else %}
+
+                    <span class="empty-text">
+                        No skills added yet.
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Edit Profile -->
+    <div class="card profile-form-card">
+
+        <h2>✏️ Edit Profile</h2>
+
+        <p class="form-description">
+            Tell other users about yourself and add your skills.
+        </p>
+
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <!-- Profile Photo -->
+            <label for="profile_photo">
+                📸 Profile Photo
+            </label>
+
+            <input
+                id="profile_photo"
+                type="file"
+                name="profile_photo"
+                accept="image/*"
+            >
+
+            <small>
+                Optional — You can upload a profile photo or keep your first letter.
+            </small>
+
+
+            <!-- Bio -->
+            <label for="bio">
+                Bio
+            </label>
+
+            <textarea
+                id="bio"
+                name="bio"
+                rows="5"
+                placeholder="Write something about yourself..."
+            >{{ profile.bio }}</textarea>
+
+
+            <!-- Skills -->
+            <label for="skills">
+                Skills
+            </label>
+
+            <input
+                id="skills"
+                type="text"
+                name="skills"
+                value="{{ profile.skills }}"
+                placeholder="Python, Django, JavaScript, SQL"
+            >
+
+            <small>
+                Separate multiple skills using commas.
+            </small>
+
+
+            <br>
+            <br>
+
+
+            <button
+                class="btn save-btn"
+                type="submit"
+            >
+                💾 Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

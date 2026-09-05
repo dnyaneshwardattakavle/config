@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Connections - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>🤝 My Connections</h1>
+    <p>People you are connected with</p>
+</div>
+
+
+<div class="connections-container">
+
+    {% for user in connections %}
+
+        <div class="card connection-card">
+
+            <div class="connection-info">
+
+                <div class="connection-avatar">
+                    {{ user.username|first|upper }}
+                </div>
+
+                <div class="connection-details">
+
+                    <h2>
+                        {{ user.username }}
+                    </h2>
+
+                    <p>
+                        🟢 Connected with you
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="connection-actions">
+
+                <a
+                    href="{% url 'user_profile' user.id %}"
+                    class="btn profile-btn"
+                >
+                    👤 Profile
+                </a>
+
+                <a
+                    href="{% url 'chat' user.id %}"
+                    class="btn message-btn"
+                >
+                    💬 Message
+                </a>
+
+            </div>
+
+        </div>
+
+
+    {% empty %}
+
+        <div class="card empty-state">
+
+            <div class="empty-icon">
+                🤝
+            </div>
+
+            <h2>
+                No connections yet
+            </h2>
+
+            <p>
+                Accept a connection request to start
+                connecting with people.
+            </p>
+
+            <br>
+
+            <a
+                href="{% url 'users' %}"
+                class="btn connect-btn"
+            >
+                👥 Find Users
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

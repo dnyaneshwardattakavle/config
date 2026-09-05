@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search Skills - Skill Swap
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+
+<h1>🔍 Find People by Skill</h1>
+
+<p>
+    Search for people who have the skills you're interested in.
+</p>
+
+
+</div>
+
+<div class="search-box card">
+
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search a skill... e.g. Python, Django, JavaScript"
+    >
+
+    <button class="btn search-btn" type="submit">
+        🔍 Search
+    </button>
+
+</form>
+
+
+</div>
+
+{% if query %}
+
+
+<h2 class="results-title">
+    Results for "{{ query }}"
+</h2>
+
+
+{% endif %}
+
+<div class="users-grid">
+
+
+{% for profile in users %}
+
+    <div class="user-card">
+
+        <div class="user-avatar">
+            {{ profile.user.username|first|upper }}
+        </div>
+
+
+        <h2>
+            {{ profile.user.username }}
+        </h2>
+
+
+        <p class="user-bio">
+            {{ profile.bio|default:"No bio added yet." }}
+        </p>
+
+
+        <div class="skills-list">
+
+            <strong>💡 Skills</strong>
+
+            <p>
+                {{ profile.skills }}
+            </p>
+
+        </div>
+
+
+        <div class="user-actions">
+
+            <a
+                class="btn profile-btn"
+                href="{% url 'user_profile' profile.user.id %}">
+                👤 Profile
+            </a>
+
+
+            <a
+                class="btn connect-btn"
+                href="{% url 'send_request' profile.user.id %}">
+                🤝 Connect
+            </a>
+
+        </div>
+
+    </div>
+
+{% empty %}
+
+    <div class="card no-results">
+
+        {% if query %}
+
+            <h2>😔 No users found</h2>
+
+            <p>
+                No users have a skill matching
+                "{{ query }}".
+            </p>
+
+        {% else %}
+
+            <h2>🔍 Search for a skill</h2>
+
+            <p>
+                Enter a skill above to find matching users.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

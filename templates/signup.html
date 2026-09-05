@@ -1,0 +1,195 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Signup - Skill Swap</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}?v=10">
+
+</head>
+
+<body class="signup-page">
+
+    <div class="signup-wrapper">
+
+        <!-- LEFT SIDE -->
+
+        <div class="signup-left">
+
+            <div class="signup-brand">
+                🔄 <span>Skill Swap</span>
+            </div>
+
+            <div class="signup-content">
+
+                <h1>
+                    Start Your Journey 🚀
+                </h1>
+
+                <p>
+                    Create your account and discover
+                    people who can teach, learn and
+                    grow with you.
+                </p>
+
+            </div>
+
+
+            <div class="signup-visual">
+
+                <div class="signup-circle">
+                    🤝
+                </div>
+
+                <div class="signup-floating float-one">
+                    💻
+                </div>
+
+                <div class="signup-floating float-two">
+                    🎨
+                </div>
+
+                <div class="signup-floating float-three">
+                    📚
+                </div>
+
+                <div class="signup-person person-left">
+                    👨‍💻
+                </div>
+
+                <div class="signup-person person-right">
+                    👩‍💻
+                </div>
+
+            </div>
+
+
+            <div class="signup-benefits">
+
+                <div>
+                    <strong>💡 Share Skills</strong>
+                    <span>Teach what you know</span>
+                </div>
+
+                <div>
+                    <strong>📚 Learn</strong>
+                    <span>Discover new skills</span>
+                </div>
+
+                <div>
+                    <strong>🤝 Connect</strong>
+                    <span>Meet new people</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="signup-right">
+
+            <div class="signup-form-container">
+
+                <div class="signup-mobile-brand">
+                    🔄 Skill Swap
+                </div>
+
+                <h2>
+                    Create your account
+                </h2>
+
+                <p class="signup-subtitle">
+                    Join Skill Swap and start learning today! ✨
+                </p>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <div class="signup-form-group">
+
+                        <label for="username">
+                            👤 Username
+                        </label>
+
+                        <input
+                            id="username"
+                            type="text"
+                            name="username"
+                            placeholder="Choose a username"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="signup-form-group">
+
+                        <label for="password">
+                            🔒 Password
+                        </label>
+
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="signup-submit"
+                    >
+                        🚀 Create Account
+                    </button>
+
+                </form>
+
+
+                <div class="signup-divider">
+
+                    <span></span>
+
+                    <p>or</p>
+
+                    <span></span>
+
+                </div>
+
+
+                <p class="login-link-text">
+
+                    Already have an account?
+
+                    <a href="{% url 'login' %}">
+                        Login →
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
